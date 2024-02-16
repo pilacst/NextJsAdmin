@@ -112,7 +112,7 @@ export default function AppLayout({
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              Pila's Admin Dashboard <sup>V 0.01</sup>
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">

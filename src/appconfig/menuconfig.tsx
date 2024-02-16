@@ -1,4 +1,4 @@
-import { TMainMenuType, TSubMenuType } from '@/types/TNavBar';
+import { TMainMenuType } from '@/types/TNavBar';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PeopleIcon from '@mui/icons-material/People';
