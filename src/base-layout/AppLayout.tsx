@@ -1,31 +1,36 @@
-'use client'
+'use client';
 
-import * as React from 'react'
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
-import MuiDrawer from '@mui/material/Drawer'
-import Box from '@mui/material/Box'
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
+import * as React from 'react';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiDrawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List'
-import Typography from '@mui/material/Typography'
-import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
-import Badge from '@mui/material/Badge'
-import Container from '@mui/material/Container'
-import Link from '@mui/material/Link'
-import MenuIcon from '@mui/icons-material/Menu'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import NotificationsIcon from '@mui/icons-material/Notifications'
-import LeftMainNavBar from '../base-layout/LeftMainNavBar'
-import LeftSecondaryNavBar from '../base-layout/LeftSecondaryNavBar'
-import Footer from '@/base-layout/Footer'
-import AccountMenu from '@/base-layout/AccountMenu'
-import FallbackBackdrop from '@/components/FallbackBackdrop'
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import Container from '@mui/material/Container';
+import Link from '@mui/material/Link';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import LeftMainNavBar from '../base-layout/LeftMainNavBar';
+import LeftSecondaryNavBar from '../base-layout/LeftSecondaryNavBar';
+import Footer from '@/base-layout/Footer';
+import AccountMenu from '@/base-layout/AccountMenu';
+import FallbackBackdrop from '@/components/FallbackBackdrop';
 
 function Copyright(props: any) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
         Your Website
@@ -60,36 +65,38 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  '& .MuiDrawer-paper': {
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    boxSizing: 'border-box',
+    ...(!open && {
+      overflowX: 'hidden',
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
+        duration: theme.transitions.duration.leavingScreen,
       }),
-      boxSizing: 'border-box',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }),
-);
+      width: theme.spacing(7),
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(9),
+      },
+    }),
+  },
+}));
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function AppLayout({ children, }: Readonly<{children: React.ReactNode;}>) {
+export default function AppLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -131,7 +138,7 @@ export default function AppLayout({ children, }: Readonly<{children: React.React
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <AccountMenu/>
+            <AccountMenu />
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
@@ -149,9 +156,9 @@ export default function AppLayout({ children, }: Readonly<{children: React.React
           </Toolbar>
           <Divider />
           <List component="nav">
-            <LeftMainNavBar/>
+            <LeftMainNavBar />
             <Divider sx={{ my: 1 }} />
-            <LeftSecondaryNavBar/>
+            <LeftSecondaryNavBar />
           </List>
         </Drawer>
         <Box
@@ -168,10 +175,10 @@ export default function AppLayout({ children, }: Readonly<{children: React.React
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <React.Suspense fallback={<FallbackBackdrop/>}>
+            <React.Suspense fallback={<FallbackBackdrop />}>
               {children}
             </React.Suspense>
-            <Footer/>
+            <Footer />
           </Container>
         </Box>
       </Box>
