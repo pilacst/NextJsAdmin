@@ -4,52 +4,15 @@ import { useState } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
 import Collapse from '@mui/material/Collapse';
 import StarBorder from '@mui/icons-material/StarBorder';
 import List from '@mui/material/List';
 import ExpandCollapse from '@/components/ExpandCollapse';
-import { TMainMenuType, TSubMenuType } from '@/types/TNavBar';
 import Link from 'next/link';
+import { TMainMenuType, TSubMenuType } from '@/types/TNavBar';
 
-const LeftMainNavBar = () => {
-  const menuItems: TMainMenuType[] = [
-    {
-      Key: 'Dashboard',
-      Title: 'Dashboard',
-      Url: '/dashboard',
-      Icon: <DashboardIcon />,
-      SubMenu: [],
-      IsExpand: false,
-    },
-    {
-      Key: 'Orders',
-      Title: 'Orders',
-      Url: '/orders',
-      Icon: <ShoppingCartIcon />,
-      SubMenu: [],
-      IsExpand: false,
-    },
-    {
-      Key: 'Customers',
-      Title: 'Customers',
-      Url: '',
-      Icon: <PeopleIcon />,
-      SubMenu: [
-        {
-          Key: 'NewCustomers',
-          Title: 'New Customers',
-          Url: '/new-customers',
-          Icon: <BarChartIcon />,
-        },
-      ],
-      IsExpand: false,
-    },
-  ];
-
+const NavBar = ({menuItems}: {menuItems: TMainMenuType[]}) => {
+  
   const [expandedMenuItems, setExpandedMenuItems] = useState(menuItems);
 
   const toggleMenu = (key: string) => {
@@ -114,4 +77,4 @@ const LeftMainNavBar = () => {
   );
 };
 
-export default LeftMainNavBar;
+export default NavBar;

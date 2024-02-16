@@ -13,33 +13,14 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import LeftMainNavBar from '../base-layout/LeftMainNavBar';
-import LeftSecondaryNavBar from '../base-layout/LeftSecondaryNavBar';
+import NavBar from './NavBar';
 import Footer from '@/base-layout/Footer';
-import AccountMenu from '@/base-layout/AccountMenu';
+import AccountMenu from '@/base-layout/UserMenu';
 import FallbackBackdrop from '@/components/FallbackBackdrop';
-
-function Copyright(props: any) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import {mainMenuItems, secondaryMenuItems} from '@/appconfig/menuconfig'
 
 const drawerWidth: number = 240;
 
@@ -131,7 +112,7 @@ export default function AppLayout({
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Dashboard
+              Pila's Admin Dashboard <sup>V 0.01</sup>
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -156,9 +137,9 @@ export default function AppLayout({
           </Toolbar>
           <Divider />
           <List component="nav">
-            <LeftMainNavBar />
+            <NavBar menuItems={mainMenuItems}/>
             <Divider sx={{ my: 1 }} />
-            <LeftSecondaryNavBar />
+            <NavBar menuItems={secondaryMenuItems}/>
           </List>
         </Drawer>
         <Box
