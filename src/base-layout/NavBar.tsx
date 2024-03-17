@@ -11,8 +11,7 @@ import ExpandCollapse from '@/components/ExpandCollapse';
 import Link from 'next/link';
 import { TMainMenuType, TSubMenuType } from '@/types/TNavBar';
 
-const NavBar = ({menuItems}: {menuItems: TMainMenuType[]}) => {
-  
+const NavBar = ({ menuItems }: { menuItems: TMainMenuType[] }) => {
   const [expandedMenuItems, setExpandedMenuItems] = useState(menuItems);
 
   const toggleMenu = (key: string) => {

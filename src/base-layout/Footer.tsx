@@ -11,7 +11,7 @@ const Footer = () => {
     >
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
-        Pila's  Demo Website
+        Pila's Demo Website
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}

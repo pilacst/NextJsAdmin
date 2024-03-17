@@ -3,8 +3,9 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import AppLayout from '@/base-layout/AppLayout';
 
-export default function Dashboard() {
+const Dashboard = () => {
   return (
     <>
       <Grid container spacing={3}>
@@ -44,3 +45,6 @@ export default function Dashboard() {
     </>
   );
 }
+
+// Dashboard.getLayout = AppLayout;
+export default Dashboard;
