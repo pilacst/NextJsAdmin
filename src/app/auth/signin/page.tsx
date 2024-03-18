@@ -25,7 +25,7 @@ import { Link as RouterLink } from 'react-router-dom';
 
 import * as Yup from 'yup';
 
-const Login = () => {
+const SignIn = () => {
   const [checked, setChecked] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -211,4 +211,4 @@ const Login = () => {
 
 // Login.getLayout = DefaultLayout;
 
-export default Login;
+export default SignIn;
