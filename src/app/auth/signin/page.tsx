@@ -79,8 +79,8 @@ const SignIn = () => {
       <Box sx={{ p: { xs: 2, sm: 3, md: 4, xl: 5 } }}>
         <Formik
           initialValues={{
-            username: 'nayanajith',
-            password: 'abcABC123@@@',
+            username: '',
+            password: '',
             submit: null,
           }}
           validationSchema={Yup.object().shape({
