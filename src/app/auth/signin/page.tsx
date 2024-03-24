@@ -19,14 +19,24 @@ import {
   Typography,
 } from '@mui/material';
 import { Formik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import * as Yup from 'yup';
 
 import {GetAuthToken} from '@/app/api/Api';
-
+import IUser from '@/app/contracts/User.Interface';
+import { useAppDispatch } from '@/lib/hooks';
+import { setUser } from '@/lib/feature/user/userSlice';
 const SignIn = () => {
   const [checked, setChecked] = useState(false);
+  const [userDetails, setUserDetails] = useState<IUser>({
+    email : '',
+    firstName : '',
+    lastName : '',
+    mobileNumber : '',
+    userName : ''
+  });
+  const dispatch = useAppDispatch()
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
@@ -36,6 +46,33 @@ const SignIn = () => {
   const handleMouseDownPassword = (event: any) => {
     event.preventDefault();
   };
+
+  useEffect(() => {
+    
+    dispatch(setUser(userDetails));
+  },[userDetails])
+
+  const submit = async (values: any) => {
+    var response = await GetAuthToken({userName: values.username, password: values.password})
+    if(!!response){
+      var user: IUser = {
+        email : response.email,
+        firstName : response.firstName,
+        lastName : response.lastName,
+        mobileNumber : response.phoneNumber,
+        userName : response.userName
+      }
+      setUserDetails(user)
+      // const store = useAppStore()
+      // const initialized = useRef(false)
+      // if (!initialized.current) {
+      //   store.dispatch(userReducer(user))
+      //   initialized.current = true
+      // }
+    
+      
+    }
+  }
 
   return (
     <Card>
@@ -54,7 +91,7 @@ const SignIn = () => {
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
-                GetAuthToken({userName: 'nayanajith', password:'abcABC123@@@'})
+              await submit(values);
               setStatus({ success: false });
               setSubmitting(false);
             } catch (err: any) {

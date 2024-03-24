@@ -18,7 +18,7 @@ async function postRequest(url: string, arg: ICredentials) {
   }).then((res) => res.json());
 }
 
-export const GetAuthToken = ({
+export const GetAuthToken = async ({
   userName,
   password,
 }: {
@@ -29,6 +29,9 @@ export const GetAuthToken = ({
     password,
     userName,
   };
-  const response = postRequest('https://localhost:7084/api/auth/', params);
+  const response = await postRequest('https://localhost:7084/api/auth/', params);
+
+  console.log('================== ', response)
+  return response;
 };
 
