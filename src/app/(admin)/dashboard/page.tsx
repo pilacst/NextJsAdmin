@@ -9,22 +9,22 @@ import { userReducer, setUser } from '@/lib/feature/user/userSlice';
 
 const Dashboard = () => {
 
-  var user: IUser = {
-    email : 'pila@gmail.co',
-    firstName : 'nayanajith',
-    lastName : 'pilapitiya',
-    mobileNumber : '719581231',
-    userName : 'pila'
-  }
-  // const store = useAppStore()
-  // const initialized = useRef(false)
-  // if (!initialized.current) {
-  //   store.dispatch(userReducer(user))
-  //   initialized.current = true
+  // var user: IUser = {
+  //   email : 'pila@gmail.co',
+  //   firstName : 'nayanajith',
+  //   lastName : 'pilapitiya',
+  //   mobileNumber : '719581231',
+  //   userName : 'pila'
   // }
+  // // const store = useAppStore()
+  // // const initialized = useRef(false)
+  // // if (!initialized.current) {
+  // //   store.dispatch(userReducer(user))
+  // //   initialized.current = true
+  // // }
 
-  const dispatch = useAppDispatch()
-  dispatch(setUser(user));
+  // const dispatch = useAppDispatch()
+  // dispatch(setUser(user));
   return (
     <>
       <Grid container spacing={3}>

@@ -8,6 +8,8 @@ export const store = () => {
     reducer: {
       user: userReducer
     },
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({ serializableCheck: false }),
   })
 }
 

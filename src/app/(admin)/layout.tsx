@@ -88,7 +88,7 @@ export default function AppLayout({
   };
 
   return (
-    <StoreProvider>
+    // <StoreProvider>
       <ThemeProvider theme={defaultTheme}>
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
@@ -169,6 +169,6 @@ export default function AppLayout({
           </Box>
         </Box>
       </ThemeProvider>
-    </StoreProvider>
+    // </StoreProvider>
   );
 }

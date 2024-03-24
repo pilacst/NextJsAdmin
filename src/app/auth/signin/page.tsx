@@ -14,18 +14,19 @@ import {
   InputAdornment,
   InputLabel,
   Link,
+  ListItemText,
   OutlinedInput,
   Stack,
   Typography,
 } from '@mui/material';
 import { Formik } from 'formik';
 import { useEffect, useState } from 'react';
-
+import { permanentRedirect  } from 'next/navigation'
 import * as Yup from 'yup';
 
 import {GetAuthToken} from '@/app/api/Api';
 import IUser from '@/app/contracts/User.Interface';
-import { useAppDispatch } from '@/lib/hooks';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { setUser } from '@/lib/feature/user/userSlice';
 const SignIn = () => {
   const [checked, setChecked] = useState(false);
@@ -48,19 +49,26 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    
+    console.log('asdsadsads')
+    console.log('useEffect  ', userDetails)
     dispatch(setUser(userDetails));
+    console.log('5555555 ', authState)
+    if(userDetails.firstName)
+      permanentRedirect('/dashboard');
   },[userDetails])
+
+  const authState = useAppSelector((state: any) => state.user);
 
   const submit = async (values: any) => {
     var response = await GetAuthToken({userName: values.username, password: values.password})
+    console.log('submit response  ', response)
     if(!!response){
       var user: IUser = {
-        email : response.email,
-        firstName : response.firstName,
-        lastName : response.lastName,
-        mobileNumber : response.phoneNumber,
-        userName : response.userName
+        email : response.user.email,
+        firstName : response.user.firstName,
+        lastName : response.user.lastName,
+        mobileNumber : response.user.phoneNumber,
+        userName : response.user.userName
       }
       setUserDetails(user)
       // const store = useAppStore()
@@ -242,6 +250,7 @@ const SignIn = () => {
           )}
         </Formik>
       </Box>
+      <Link href="/dashboard"> <ListItemText primary={authState.firstName} /> </Link>
     </Card>
   );
 };

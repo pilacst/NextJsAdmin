@@ -23,7 +23,6 @@ import FallbackBackdrop from '@/components/FallbackBackdrop';
 import { mainMenuItems, secondaryMenuItems } from '@/appconfig/menuconfig';
 
 import { Provider } from 'react-redux';
-import { Store } from '@/lib/store';
 
 const drawerWidth: number = 240;
 
@@ -87,7 +86,6 @@ export default function AppLayout({
   };
 
   return (
-    <Provider store={Store}>
       <ThemeProvider theme={defaultTheme}>
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
@@ -168,6 +166,5 @@ export default function AppLayout({
           </Box>
         </Box>
       </ThemeProvider>
-    </Provider>
   );
 }
