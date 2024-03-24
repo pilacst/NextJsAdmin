@@ -1,11 +1,30 @@
 'use client';
 
-import * as React from 'react';
+import { useRef } from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import AppLayout from '@/base-layout/AppLayout';
+import { useAppDispatch, useAppSelector, useAppStore } from '@/lib/hooks';
+import IUser from '@/app/contracts/User.Interface';
+import { userReducer, setUser } from '@/lib/feature/user/userSlice';
 
 const Dashboard = () => {
+
+  var user: IUser = {
+    email : 'pila@gmail.co',
+    firstName : 'nayanajith',
+    lastName : 'pilapitiya',
+    mobileNumber : '719581231',
+    userName : 'pila'
+  }
+  // const store = useAppStore()
+  // const initialized = useRef(false)
+  // if (!initialized.current) {
+  //   store.dispatch(userReducer(user))
+  //   initialized.current = true
+  // }
+
+  const dispatch = useAppDispatch()
+  dispatch(setUser(user));
   return (
     <>
       <Grid container spacing={3}>

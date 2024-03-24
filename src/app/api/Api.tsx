@@ -5,14 +5,20 @@ interface ICredentials {
   password: string;
 }
 
-async function postRequest(arg: ICredentials) {
-  return fetch('https://localhost:7084/auth/', {
+async function postRequest(url: string, arg: ICredentials) {
+  console.log('arg ', arg)
+  console.log('JSON.stringify(arg) ', JSON.stringify(arg))
+  return fetch(url, {
     method: 'POST',
-    body: JSON.stringify(arg),
+    headers: {
+      "Content-Type": "application/json",
+      'X-TenentId': "12390480945-234y2398===",
+    },
+    body: JSON.stringify(arg)
   }).then((res) => res.json());
 }
 
-const AuthToken = ({
+export const GetAuthToken = ({
   userName,
   password,
 }: {
@@ -23,7 +29,6 @@ const AuthToken = ({
     password,
     userName,
   };
-  const response = postRequest(params);
+  const response = postRequest('https://localhost:7084/api/auth/', params);
 };
 
-export default AuthToken;

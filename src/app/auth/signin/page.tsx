@@ -1,6 +1,5 @@
 'use client';
 
-import DefaultLayout from '@/base-layout/DefaultLayout';
 import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 import {
   Box,
@@ -21,9 +20,10 @@ import {
 } from '@mui/material';
 import { Formik } from 'formik';
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 
 import * as Yup from 'yup';
+
+import {GetAuthToken} from '@/app/api/Api';
 
 const SignIn = () => {
   const [checked, setChecked] = useState(false);
@@ -42,19 +42,19 @@ const SignIn = () => {
       <Box sx={{ p: { xs: 2, sm: 3, md: 4, xl: 5 } }}>
         <Formik
           initialValues={{
-            email: 'info@codedthemes.com',
-            password: '123456',
+            username: 'nayanajith',
+            password: 'abcABC123@@@',
             submit: null,
           }}
           validationSchema={Yup.object().shape({
-            email: Yup.string()
-              .email('Must be a valid email')
+            username: Yup.string()
               .max(255)
-              .required('Email is required'),
+              .required('Username is required'),
             password: Yup.string().max(255).required('Password is required'),
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
             try {
+                GetAuthToken({userName: 'nayanajith', password:'abcABC123@@@'})
               setStatus({ success: false });
               setSubmitting(false);
             } catch (err: any) {
@@ -77,24 +77,24 @@ const SignIn = () => {
               <Grid container spacing={3}>
                 <Grid item xs={12}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="email-login">Email Address</InputLabel>
+                    <InputLabel htmlFor="username-login">Username</InputLabel>
                     <OutlinedInput
-                      id="email-login"
-                      type="email"
-                      value={values.email}
-                      name="email"
+                      id="username-login"
+                      type="text"
+                      value={values.username}
+                      name="username"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      placeholder="Enter email address"
+                      placeholder="Enter username"
                       fullWidth
-                      error={Boolean(touched.email && errors.email)}
+                      error={Boolean(touched.username && errors.username)}
                     />
-                    {touched.email && errors.email && (
+                    {touched.username && errors.username && (
                       <FormHelperText
                         error
                         id="standard-weight-helper-text-email-login"
                       >
-                        {errors.email}
+                        {errors.username}
                       </FormHelperText>
                     )}
                   </Stack>

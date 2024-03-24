@@ -31,7 +31,8 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <AppLayout>{children}</AppLayout>
+        {/* <AppLayout>{children}</AppLayout> */}
+        {children}
       </body>
     </html>
   );
