@@ -10,20 +10,6 @@ const initialState : IUser = {
     userName : ''
 }
 
-// export const userSlice = () => createSlice({
-//     name: 'user',
-//     initialState,
-//     reducers: {
-//         user: (state, action: PayloadAction<IUser>) => {
-//             state.email = action.payload.email;
-//             state.firstName = action.payload.firstName;
-//             state.lastName = action.payload.lastName;
-//             state.userName = action.payload.userName;
-//             state.mobileNumber = action.payload.mobileNumber;
-//         }
-//     }
-// });
-
 export const userSlice = createSlice({
     name: 'user',
     initialState,

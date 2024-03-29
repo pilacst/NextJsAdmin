@@ -71,14 +71,6 @@ const SignIn = () => {
         userName : response.user.userName
       }
       setUserDetails(user)
-      // const store = useAppStore()
-      // const initialized = useRef(false)
-      // if (!initialized.current) {
-      //   store.dispatch(userReducer(user))
-      //   initialized.current = true
-      // }
-    
-      
     }
   }
 
