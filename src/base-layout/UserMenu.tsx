@@ -24,7 +24,7 @@ export default function AccountMenu() {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-      {`Welcome ${authState.firstName} ${authState.lastName}`}
+        {`Welcome ${authState.firstName} ${authState.lastName}`}
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}

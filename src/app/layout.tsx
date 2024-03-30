@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import AppLayout from '@/base-layout/AppLayout';
-import StoreProvider from '@/lib/StoreProvider';
 import DefaultLayout from '@/base-layout/DefaultLayout';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -17,7 +15,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
   return (
     <html lang="en">
       <head>
@@ -34,8 +31,6 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        {/* <AppLayout>{children}</AppLayout> */}
-        {/* <StoreProvider>{children}</StoreProvider> */}
         <DefaultLayout>{children}</DefaultLayout>
       </body>
     </html>

@@ -21,34 +21,33 @@ import {
 } from '@mui/material';
 import { Formik } from 'formik';
 import { useEffect, useState, useContext } from 'react';
-import { permanentRedirect  } from 'next/navigation'
+import { permanentRedirect } from 'next/navigation';
 import * as Yup from 'yup';
 
-import {GetAuthToken} from '@/app/api/Api';
+import { GetAuthToken } from '@/app/api/Api';
 import IUser from '@/contracts/User.Interface';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { setUser } from '@/lib/feature/user/userSlice';
 import IAuth from '@/contracts/Auth.Interface';
-import DefaultLayout from '@/base-layout/DefaultLayout';
 import { AuthContext } from '@/context/AuthContextProvider';
 
 const SignIn = () => {
   const [checked, setChecked] = useState(false);
   const [userDetails, setUserDetails] = useState<IUser>({
-    email : '',
-    firstName : '',
-    lastName : '',
-    mobileNumber : '',
-    userName : ''
+    email: '',
+    firstName: '',
+    lastName: '',
+    mobileNumber: '',
+    userName: '',
   });
   const [authInfo, setAuthInfo] = useState<IAuth>({
-    fullName:  "",
+    fullName: '',
     isAuthenticated: false,
-    token: "",
-    userName: ""
+    token: '',
+    userName: '',
   });
   const dispatch = useAppDispatch();
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
@@ -61,40 +60,41 @@ const SignIn = () => {
 
   useEffect(() => {
     dispatch(setUser(userDetails));
-    console.log('userDetails ', userDetails)
-    console.log('authInfo ', authInfo)
-    context?.setAuthInfo(authInfo)
-    if(authInfo.isAuthenticated)
-      permanentRedirect('/dashboard');
-  },[userDetails, authInfo])
+    console.log('userDetails ', userDetails);
+    console.log('authInfo ', authInfo);
+    context?.setAuthInfo(authInfo);
+    if (authInfo.isAuthenticated) permanentRedirect('/dashboard');
+  }, [userDetails, authInfo]);
 
   const user = useAppSelector((state: any) => state.user);
 
   const submit = async (values: any) => {
-    var response = await GetAuthToken({userName: values.username, password: values.password});
-    console.log('submit response  ', response)
-    if(response){
+    var response = await GetAuthToken({
+      userName: values.username,
+      password: values.password,
+    });
+    console.log('submit response  ', response);
+    if (response) {
       var user: IUser = {
-        email : response.user.email,
-        firstName : response.user.firstName,
-        lastName : response.user.lastName,
-        mobileNumber : response.user.phoneNumber,
-        userName : response.user.userName
+        email: response.user.email,
+        firstName: response.user.firstName,
+        lastName: response.user.lastName,
+        mobileNumber: response.user.phoneNumber,
+        userName: response.user.userName,
       };
       var auth: IAuth = {
-        fullName:  `${response.user.firstName} ${response.user.lastName}`,
+        fullName: `${response.user.firstName} ${response.user.lastName}`,
         isAuthenticated: true,
         token: response.jwtToken,
-        userName: response.user.userName
+        userName: response.user.userName,
       };
       setUserDetails(user);
       setAuthInfo(auth);
     }
-  }
+  };
 
   return (
-    // <DefaultLayout>
-      <Card>
+    <Card>
       <Box sx={{ p: { xs: 2, sm: 3, md: 4, xl: 5 } }}>
         <Formik
           initialValues={{
@@ -103,9 +103,7 @@ const SignIn = () => {
             submit: null,
           }}
           validationSchema={Yup.object().shape({
-            username: Yup.string()
-              .max(255)
-              .required('Username is required'),
+            username: Yup.string().max(255).required('Username is required'),
             password: Yup.string().max(255).required('Password is required'),
           })}
           onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
@@ -218,14 +216,6 @@ const SignIn = () => {
                         <Typography variant="h6">Keep me sign in</Typography>
                       }
                     />
-                    {/* <Link
-                      variant="h6"
-                      component={RouterLink}
-                      to=""
-                      color="text.primary"
-                    >
-                      Forgot Password?
-                    </Link> */}
                   </Stack>
                 </Grid>
                 {errors.submit && (
@@ -261,12 +251,12 @@ const SignIn = () => {
           )}
         </Formik>
       </Box>
-      <Link href="/dashboard"> <ListItemText primary={user.firstName} /> </Link>
+      <Link href="/dashboard">
+        {' '}
+        <ListItemText primary={user.firstName} />{' '}
+      </Link>
     </Card>
-    // </DefaultLayout>
   );
 };
-
-// Login.getLayout = DefaultLayout;
 
 export default SignIn;

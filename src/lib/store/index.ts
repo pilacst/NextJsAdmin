@@ -11,23 +11,21 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist'
-import { PersistGate } from 'redux-persist/integration/react'
+} from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 import { authReducer } from '../feature/auth/authSlice';
 
 export const store = () => {
   return configureStore({
     reducer: {
       user: userReducer,
-      auth: authReducer
+      auth: authReducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ serializableCheck: false }),
-  })
-}
+  });
+};
 
-// Infer the type of store
-export type AppStore = ReturnType<typeof store>
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<AppStore['getState']>
-export type AppDispatch = AppStore['dispatch']
+export type AppStore = ReturnType<typeof store>;
+export type RootState = ReturnType<AppStore['getState']>;
+export type AppDispatch = AppStore['dispatch'];
