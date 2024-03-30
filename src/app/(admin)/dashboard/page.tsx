@@ -1,10 +1,12 @@
 'use client';
-
-import * as React from 'react';
+import { useContext, useRef, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import { AuthContext } from '@/context/AuthContextProvider';
 
-export default function Dashboard() {
+const Dashboard = () => {
+  const context = useContext(AuthContext);
+
   return (
     <>
       <Grid container spacing={3}>
@@ -19,6 +21,7 @@ export default function Dashboard() {
             }}
           >
             Chart
+            {context?.authInfo?.fullName}
           </Paper>
         </Grid>
         {/* Recent Deposits */}
@@ -34,7 +37,6 @@ export default function Dashboard() {
             Deposits
           </Paper>
         </Grid>
-        {/* Recent Orders */}
         <Grid item xs={12}>
           <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
             orders
@@ -43,4 +45,6 @@ export default function Dashboard() {
       </Grid>
     </>
   );
-}
+};
+
+export default Dashboard;
