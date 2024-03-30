@@ -1,5 +1,6 @@
 export default interface IAuth {
     token: string,
     isAuthenticated: boolean,
-    userName: string
+    userName: string,
+    fullName: string
 }

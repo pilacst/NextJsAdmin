@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import { Suspense, useContext, useState } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -25,6 +25,7 @@ import { mainMenuItems, secondaryMenuItems } from '@/appconfig/menuconfig';
 import { Provider } from 'react-redux';
 import { store } from '@/lib/store';
 import StoreProvider from '@/lib/StoreProvider';
+import DefaultLayout from '@/base-layout/DefaultLayout';
 
 const drawerWidth: number = 240;
 
@@ -82,14 +83,15 @@ const defaultTheme = createTheme();
 export default function AppLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
+
   return (
     // <StoreProvider>
-      <ThemeProvider theme={defaultTheme}>
+    // <DefaultLayout>
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
           <AppBar position="absolute" open={open}>
@@ -161,14 +163,14 @@ export default function AppLayout({
           >
             <Toolbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-              <React.Suspense fallback={<FallbackBackdrop />}>
+              <Suspense fallback={<FallbackBackdrop />}>
                 {children}
-              </React.Suspense>
+              </Suspense>
               <Footer />
             </Container>
           </Box>
         </Box>
-      </ThemeProvider>
-    // </StoreProvider>
+    // </DefaultLayout>
+        // </StoreProvider>
   );
 }

@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import IAuth from "@/app/contracts/Auth.Interface";
+import IAuth from "@/contracts/Auth.Interface";
 
 const initialState : IAuth = {
     token: "",
     isAuthenticated: false,
-    userName: ""
+    userName: "",
+    fullName: ""
 }
 
 export const authSlice = createSlice({
@@ -16,6 +17,7 @@ export const authSlice = createSlice({
         state.isAuthenticated = action.payload.isAuthenticated;
         state.token = action.payload.token;
         state.userName = action.payload.userName;
+        state.fullName = action.payload.fullName
         },
     }
 });

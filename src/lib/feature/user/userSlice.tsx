@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import IUser from "@/app/contracts/User.Interface";
+import IUser from "@/contracts/User.Interface";
 
 const initialState : IUser = {
     email : '',

@@ -1,14 +1,17 @@
 'use client';
 
-import { useRef } from 'react';
+import { useContext, useRef, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { useAppDispatch, useAppSelector, useAppStore } from '@/lib/hooks';
-import IUser from '@/app/contracts/User.Interface';
+import IUser from '@/contracts/User.Interface';
 import { userReducer, setUser } from '@/lib/feature/user/userSlice';
+import { AuthContext } from '@/context/AuthContextProvider';
+import IAuth from '@/contracts/Auth.Interface';
 
 const Dashboard = () => {
-
+  const context = useContext(AuthContext);
+  console.log('Dashboard ', context)
   // var user: IUser = {
   //   email : 'pila@gmail.co',
   //   firstName : 'nayanajith',
@@ -38,7 +41,8 @@ const Dashboard = () => {
               height: 240,
             }}
           >
-            Chart
+            Chart 
+            {context?.authInfo?.fullName}
           </Paper>
         </Grid>
         {/* Recent Deposits */}

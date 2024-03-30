@@ -20,14 +20,18 @@ import {
   Typography,
 } from '@mui/material';
 import { Formik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { permanentRedirect  } from 'next/navigation'
 import * as Yup from 'yup';
 
 import {GetAuthToken} from '@/app/api/Api';
-import IUser from '@/app/contracts/User.Interface';
+import IUser from '@/contracts/User.Interface';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { setUser } from '@/lib/feature/user/userSlice';
+import IAuth from '@/contracts/Auth.Interface';
+import DefaultLayout from '@/base-layout/DefaultLayout';
+import { AuthContext } from '@/context/AuthContextProvider';
+
 const SignIn = () => {
   const [checked, setChecked] = useState(false);
   const [userDetails, setUserDetails] = useState<IUser>({
@@ -37,7 +41,14 @@ const SignIn = () => {
     mobileNumber : '',
     userName : ''
   });
-  const dispatch = useAppDispatch()
+  const [authInfo, setAuthInfo] = useState<IAuth>({
+    fullName:  "",
+    isAuthenticated: false,
+    token: "",
+    userName: ""
+  });
+  const dispatch = useAppDispatch();
+  const context = useContext(AuthContext)
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
@@ -49,33 +60,41 @@ const SignIn = () => {
   };
 
   useEffect(() => {
-    console.log('asdsadsads')
-    console.log('useEffect  ', userDetails)
     dispatch(setUser(userDetails));
-    console.log('5555555 ', authState)
-    if(userDetails.firstName)
+    console.log('userDetails ', userDetails)
+    console.log('authInfo ', authInfo)
+    context?.setAuthInfo(authInfo)
+    if(authInfo.isAuthenticated)
       permanentRedirect('/dashboard');
-  },[userDetails])
+  },[userDetails, authInfo])
 
-  const authState = useAppSelector((state: any) => state.user);
+  const user = useAppSelector((state: any) => state.user);
 
   const submit = async (values: any) => {
-    var response = await GetAuthToken({userName: values.username, password: values.password})
+    var response = await GetAuthToken({userName: values.username, password: values.password});
     console.log('submit response  ', response)
-    if(!!response){
+    if(response){
       var user: IUser = {
         email : response.user.email,
         firstName : response.user.firstName,
         lastName : response.user.lastName,
         mobileNumber : response.user.phoneNumber,
         userName : response.user.userName
-      }
-      setUserDetails(user)
+      };
+      var auth: IAuth = {
+        fullName:  `${response.user.firstName} ${response.user.lastName}`,
+        isAuthenticated: true,
+        token: response.jwtToken,
+        userName: response.user.userName
+      };
+      setUserDetails(user);
+      setAuthInfo(auth);
     }
   }
 
   return (
-    <Card>
+    // <DefaultLayout>
+      <Card>
       <Box sx={{ p: { xs: 2, sm: 3, md: 4, xl: 5 } }}>
         <Formik
           initialValues={{
@@ -242,8 +261,9 @@ const SignIn = () => {
           )}
         </Formik>
       </Box>
-      <Link href="/dashboard"> <ListItemText primary={authState.firstName} /> </Link>
+      <Link href="/dashboard"> <ListItemText primary={user.firstName} /> </Link>
     </Card>
+    // </DefaultLayout>
   );
 };
 
